@@ -6,10 +6,8 @@ public class Imps {
    public static void main(String[] args) throws FileNotFoundException {
       ImpsTools sys = new ImpsTools(new File(args[0]));
       Scanner scan, stringScan;
-      String input, line;
-      File inFile = new File(args[0]), script;
-      int scriptMode = 0;
-      
+      String input;
+      File script;
 
       // To echo the command there could be two scanners
       if (args.length == 2) {
