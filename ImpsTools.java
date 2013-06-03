@@ -45,6 +45,8 @@ public class ImpsTools {
 
             if (opcode.equals("add"))
                add(false);
+            else if(opcode.equals("sub"))
+               add(true);
             else if (opcode.equals("addi"))
                addi();
             else if (opcode.equals("and"))
