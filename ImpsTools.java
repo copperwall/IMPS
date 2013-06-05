@@ -34,12 +34,12 @@ public class ImpsTools {
    }
 
    public void step(int num) {
-      String opcode;
+      String opcode = null;
 
       for (int i = 0; i != num && pc < instMem.size(); i++) {
          scan = new Scanner(instMem.get(pc++));
          scan.useDelimiter("[\\s,()]+");
-
+         
          while (scan.hasNext()) {
             opcode = scan.next();
 
@@ -53,6 +53,14 @@ public class ImpsTools {
                logic(true);
             else if (opcode.equals("or"))
                logic(false);
+            else if (opcode.equals("sll"))
+               shift(false, false);
+            else if (opcode.equals("sllv"))
+               shift(false, true);
+            else if (opcode.equals("srl"))
+               shift(true, false);
+            else if (opcode.equals("srlv"))
+               shift(true, true);
             else if (opcode.equals("slt"))
                slt();
             else if (opcode.equals("sw"))
@@ -71,8 +79,10 @@ public class ImpsTools {
                jump(2);
          }
       }
-      if (num > 0)
+      if (num > 0 && opcode != null)
          System.out.println("        " + num + " instruction(s) executed");
+      else
+         System.out.println("        No more instructions");
    }
 
    public void dumpRegState() {
@@ -183,6 +193,21 @@ public class ImpsTools {
       rt = getValue(scan.next());
 
       rd.value = and ? rs & rt : rs | rt;
+   }
+
+   private void shift(boolean right, boolean variable) {
+      Register rd;
+      int rs, rt;
+
+      rd = getReg(scan.next());
+      rs = getValue(scan.next());
+   
+      if (variable)
+         rt = getValue(scan.next());
+      else
+         rt = scan.nextInt();
+
+      rd.value = right ? rs>>rt : rs<<rt;
    }
 
    private void branch(boolean beq) {
