@@ -1,8 +1,9 @@
 /**
- * MIPSSim: This class emulates a MIPS system
+ * ImpsTools: This class contains the methods to emulate MIPS Instructions
+ *            and constrols the step and run functions from the driver
  * 
  * @author Chris Opperwall
- * @version 1.0 May 29, 2013
+ * @version 1.1 June 09, 2013
  */
 
 import java.util.ArrayList;
@@ -13,16 +14,12 @@ import java.io.FileNotFoundException;
 public class ImpsTools {
    
    // Instance Variables
-   private int[] dataMem;
-   private ArrayList<String> instMem;
-   private ArrayList<Register> regFile;
-   private int pc;
-   private Scanner scan;
+   private int[] dataMem; // Holds 8192 words of memory
+   private ArrayList<String> instMem; // Holds all instructions as Strings
+   private ArrayList<Register> regFile; // Emulates the MIPS Register File
+   private int pc; // Tracks the value of the Program Counter
+   private Scanner instScanner; // This scanner is used to parse a String representation of a MIPS Instruction
 
-   /* Initialize dataMem
-      Initialize regFile: call initReg() to set up
-      Initialize instMem: Scan in all instructions?
-   */
    public ImpsTools(File instructions) throws FileNotFoundException {
       dataMem = new int[8192];
       instMem = new ArrayList<String>();
@@ -85,6 +82,7 @@ public class ImpsTools {
          System.out.println("        No more instructions");
    }
 
+   // Prints all Register values to stdout
    public void dumpRegState() {
       System.out.println("\npc = " + pc);
 
@@ -100,6 +98,7 @@ public class ImpsTools {
       }
    }
 
+   // Prints data memory values from |start| to |stop|
    public void memDisplay(int start, int stop) {
       while (start <= stop) {
          System.out.println("[" + start + "] = " + dataMem[start]);
@@ -107,14 +106,17 @@ public class ImpsTools {
       }
    }
 
+   // Resets the Simulator, this might not be working
    public void simReset() {
       dataMem = new int[8192];
+      pc = 0;
       for (int i = 0; i < regFile.size(); i++)
          regFile.get(i).value = 0;
 
       System.out.println("        Simulator reset");
    }
 
+   // Prints help dialog to stdout
    public void help() {
       System.out.println("\nh = show help");
       System.out.println("d = dump register state");
@@ -126,6 +128,7 @@ public class ImpsTools {
       System.out.println("q = exit the program");
    }
 
+   // Initializes Register File with new Register classes
    private void initReg() {
       regFile.add(new Register("$0"));
       regFile.add(new Register("$v0"));
@@ -147,6 +150,7 @@ public class ImpsTools {
       regFile.add(new Register("$ra"));
    }
 
+   // Initializes Inst Memory by scanning in each line and storing them in |instMem|
    private void initInstMem(File instFile) throws FileNotFoundException {
       String temp;
       Scanner scan = new Scanner(instFile);

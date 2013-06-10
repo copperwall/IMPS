@@ -1,3 +1,10 @@
+/**
+ * IMPS - A Java implementation of a MIPS Computer
+ *
+ * @author Chris Opperwall
+ * @version 1.1 June 9th, 2013
+ */
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
