@@ -18,7 +18,7 @@ public class ImpsTools {
    private ArrayList<String> instMem; // Holds all instructions as Strings
    private ArrayList<Register> regFile; // Emulates the MIPS Register File
    private int pc; // Tracks the value of the Program Counter
-   private Scanner instScanner; // This scanner is used to parse a String representation of a MIPS Instruction
+   private Scanner instScan; // This scanner is used to parse a String representation of a MIPS Instruction
 
    public ImpsTools(File instructions) throws FileNotFoundException {
       dataMem = new int[8192];
@@ -34,11 +34,11 @@ public class ImpsTools {
       String opcode = null;
 
       for (int i = 0; i != num && pc < instMem.size(); i++) {
-         scan = new Scanner(instMem.get(pc++));
-         scan.useDelimiter("[\\s,()]+");
+         instScan = new Scanner(instMem.get(pc++));
+         instScan.useDelimiter("[\\s,()]+");
          
-         while (scan.hasNext()) {
-            opcode = scan.next();
+         while (instScan.hasNext()) {
+            opcode = instScan.next();
 
             if (opcode.equals("add"))
                add(false);
@@ -153,10 +153,10 @@ public class ImpsTools {
    // Initializes Inst Memory by scanning in each line and storing them in |instMem|
    private void initInstMem(File instFile) throws FileNotFoundException {
       String temp;
-      Scanner scan = new Scanner(instFile);
+      Scanner instParse = new Scanner(instFile);
 
-      while (scan.hasNext()) {
-         temp = scan.nextLine().trim();
+      while (instParse.hasNext()) {
+         temp = instParse.nextLine().trim();
          if (temp.indexOf("#") != -1)
             temp = temp.substring(0, temp.indexOf("#"));
          if (temp.length() > 0)
@@ -170,9 +170,9 @@ public class ImpsTools {
       Register rd;
       int rs, rt;
       
-      rd = getReg(scan.next());
-      rs = getValue(scan.next());
-      rt = getValue(scan.next());
+      rd = getReg(instScan.next());
+      rs = getValue(instScan.next());
+      rt = getValue(instScan.next());
 
       rd.value = sub ? rs - rt : rs + rt;
    }
@@ -181,9 +181,9 @@ public class ImpsTools {
       Register rd;
       int rs, immed;
 
-      rd = getReg(scan.next());
-      rs = getValue(scan.next());
-      immed = scan.nextInt();
+      rd = getReg(instScan.next());
+      rs = getValue(instScan.next());
+      immed = instScan.nextInt();
 
       rd.value = rs + immed;
    }
@@ -192,9 +192,9 @@ public class ImpsTools {
       Register rd;
       int rs, rt;
       
-      rd = getReg(scan.next());
-      rs = getValue(scan.next());
-      rt = getValue(scan.next());
+      rd = getReg(instScan.next());
+      rs = getValue(instScan.next());
+      rt = getValue(instScan.next());
 
       rd.value = and ? rs & rt : rs | rt;
    }
@@ -203,13 +203,13 @@ public class ImpsTools {
       Register rd;
       int rs, rt;
 
-      rd = getReg(scan.next());
-      rs = getValue(scan.next());
+      rd = getReg(instScan.next());
+      rs = getValue(instScan.next());
    
       if (variable)
-         rt = getValue(scan.next());
+         rt = getValue(instScan.next());
       else
-         rt = scan.nextInt();
+         rt = instScan.nextInt();
 
       rd.value = right ? rs>>rt : rs<<rt;
    }
@@ -218,27 +218,27 @@ public class ImpsTools {
       int rs, rt;
       String label;
 
-      rs = getValue(scan.next());
-      rt = getValue(scan.next());
-      label = scan.next();
+      rs = getValue(instScan.next());
+      rt = getValue(instScan.next());
+      label = instScan.next();
 
       if ( beq ? rs == rt : rs != rt)
          pc = findLabel(label);
    }
 
    private void slt() {
-      Register rd = getReg(scan.next());
+      Register rd = getReg(instScan.next());
       int rs, rt;
 
-      rs = getValue(scan.next());
-      rt = getValue(scan.next());
+      rs = getValue(instScan.next());
+      rt = getValue(instScan.next());
 
       rd.value = rs < rt ? 1 : 0;
    }
 
    private void memIO(boolean store) {
-      Register rd = getReg(scan.next());
-      int offset = scan.nextInt(), memAddr = getValue(scan.next());
+      Register rd = getReg(instScan.next());
+      int offset = instScan.nextInt(), memAddr = getValue(instScan.next());
       if (store)
          dataMem[memAddr + offset] = rd.value;
       else
@@ -253,10 +253,10 @@ public class ImpsTools {
       if (type != 2) {
          if (type == 1)
             getReg("$ra").value = pc;
-         pc = findLabel(scan.next());
+         pc = findLabel(instScan.next());
       }
       else
-         pc = getValue(scan.next());
+         pc = getValue(instScan.next());
    }
 
    private int findLabel(String label) {
