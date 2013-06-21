@@ -40,4 +40,6 @@ IMPS was a project for my CPE 315 Computer Architecture course. It currently onl
 1. jal
 1. jr
 
-I'll be adding more as time allows.
+I'll be adding more when I can.
+
+I'm also going to try to document my classes/constructors/methods to get some javadocs experience, stay tuned.

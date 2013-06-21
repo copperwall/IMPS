@@ -16,7 +16,7 @@ public class Imps {
       String input;
       File script;
 
-      // To echo the command there could be two scanners
+      // Checks to see if there is a script to read
       if (args.length == 2) {
          script = new File(args[1]);
          scan = new Scanner(script);
