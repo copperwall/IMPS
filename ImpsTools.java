@@ -20,6 +20,13 @@ public class ImpsTools {
    private int pc; // Tracks the value of the Program Counter
    private Scanner instScan; // This scanner is used to parse a String representation of a MIPS Instruction
 
+   /**
+    * Initiates the data memory, instruction memory, and registers
+    * 
+    * @param instructions The file containing containing the asm
+    * instructions
+    * @throws FileNotFoundException If file can't be found
+    */
    public ImpsTools(File instructions) throws FileNotFoundException {
       dataMem = new int[8192];
       instMem = new ArrayList<String>();
@@ -30,6 +37,11 @@ public class ImpsTools {
       initInstMem(instructions);
    }
 
+   /**
+    * Step through a specific number of instructions
+    *
+    * @param num The number of instructions to step through
+    */
    public void step(int num) {
       String opcode = null;
 
@@ -164,12 +176,6 @@ public class ImpsTools {
       regFile.add(new Register("$ra"));
    }
 
-   /**
-    * Initialize Instruction Memory
-    *
-    * @param instFile The file containing all of the asm instructions
-    * @throws FileNotFoundException If file can't be found
-    */
    private void initInstMem(File instFile) throws FileNotFoundException {
       String temp;
       Scanner instParse = new Scanner(instFile);
