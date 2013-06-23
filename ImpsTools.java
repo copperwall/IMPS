@@ -82,7 +82,9 @@ public class ImpsTools {
          System.out.println("        No more instructions");
    }
 
-   // Prints all Register values to stdout
+   /**
+    * Prints the Register File state to stdout
+    */
    public void dumpRegState() {
       System.out.println("\npc = " + pc);
 
@@ -98,7 +100,13 @@ public class ImpsTools {
       }
    }
 
-   // Prints data memory values from |start| to |stop|
+   /**
+    * Prints the values of memory from a beginning address to an ending
+    * address.
+    *
+    * @param start First memory address to print from
+    * @param stop Final memory address to print from
+    */
    public void memDisplay(int start, int stop) {
       while (start <= stop) {
          System.out.println("[" + start + "] = " + dataMem[start]);
@@ -106,7 +114,9 @@ public class ImpsTools {
       }
    }
 
-   // Resets the Simulator, this might not be working
+   /**
+    * Resets the simulator, including register state, pc, and memory
+    */
    public void simReset() {
       dataMem = new int[8192];
       pc = 0;
@@ -116,7 +126,9 @@ public class ImpsTools {
       System.out.println("        Simulator reset");
    }
 
-   // Prints help dialog to stdout
+   /**
+    * Print a help dialog to stdout
+    */
    public void help() {
       System.out.println("\nh = show help");
       System.out.println("d = dump register state");
@@ -128,7 +140,9 @@ public class ImpsTools {
       System.out.println("q = exit the program");
    }
 
-   // Initializes Register File with new Register classes
+   /**
+    * Populate the Register File with new registers
+    */
    private void initReg() {
       regFile.add(new Register("$0"));
       regFile.add(new Register("$v0"));
@@ -150,7 +164,12 @@ public class ImpsTools {
       regFile.add(new Register("$ra"));
    }
 
-   // Initializes Inst Memory by scanning in each line and storing them in |instMem|
+   /**
+    * Initialize Instruction Memory
+    *
+    * @param instFile The file containing all of the asm instructions
+    * @throws FileNotFoundException If file can't be found
+    */
    private void initInstMem(File instFile) throws FileNotFoundException {
       String temp;
       Scanner instParse = new Scanner(instFile);
