@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 
 public class ImpsTools {
    
-   // Instance Variables
    private int[] dataMem; // Holds 8192 words of memory
    private ArrayList<String> instMem; // Holds all instructions as Strings
    private ArrayList<Register> regFile; // Emulates the MIPS Register File
