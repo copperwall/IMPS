@@ -13,11 +13,11 @@ import java.io.FileNotFoundException;
 
 public class ImpsTools {
    
-   private int[] dataMem; // Holds 8192 words of memory
-   private ArrayList<String> instMem; // Holds all instructions as Strings
-   private ArrayList<Register> regFile; // Emulates the MIPS Register File
-   private int pc; // Tracks the value of the Program Counter
-   private Scanner instScan; // This scanner is used to parse a String representation of a MIPS Instruction
+   private int[] dataMem;              /* Data Memory: 8192 'bytes' */
+   private ArrayList<String> instMem;  /* Holds all instructions as strings */
+   private ArrayList<Register> regFile;/* Holds 32 <code>Registers</code> */
+   private int pc;                     /* The current instruction to process */
+   private Scanner instScan;           /* Parses instruction strings */
 
    /**
     * Initiates the data memory, instruction memory, and registers

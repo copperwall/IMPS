@@ -11,10 +11,11 @@ import java.io.FileNotFoundException;
 
 public class Imps {
    public static void main(String[] args) throws FileNotFoundException {
-      ImpsTools sys = new ImpsTools(new File(args[0]));
-      Scanner scan, stringScan;
-      String input;
-      File script;
+      ImpsTools sys = 
+         new ImpsTools(new File(args[0]));   /* MIPS Emulation class */
+      Scanner scan, stringScan;              /* Scans instructions/scripts */
+      String input;                          /* Stores emulator commands */
+      File script;                           /* Script of commands to run */
 
       /* Checks to see if there is a script to read */
       if (args.length == 2) {
