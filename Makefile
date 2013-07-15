@@ -1,4 +1,4 @@
-lab3:
+build:
 	javac ImpsTools.java Imps.java
 
 clean:
