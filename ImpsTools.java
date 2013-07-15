@@ -51,6 +51,11 @@ public class ImpsTools {
          while (instScan.hasNext()) {
             opcode = instScan.next();
 
+            /* Not sure if this is the best way to implement
+             * this. Switches with strings are available in 
+             * Java SE 7, but there might be a better way with
+             * string.hashCode() or enums or something.
+             */
             if (opcode.equals("add"))
                add(false);
             else if(opcode.equals("sub"))
