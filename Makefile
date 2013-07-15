@@ -3,3 +3,7 @@ lab3:
 
 clean:
 	rm *.class
+
+doc:
+	mkdir docs
+	javadoc -d docs *.java
