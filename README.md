@@ -23,7 +23,7 @@ IMPS began as a project for my CPE 315 Computer Architecture course. It currentl
 ###    With script file:
 
 ```shell
-    $ java Imps [ASM_FILE] [SCRIPT_FILE]'
+    $ java Imps [ASM_FILE] [SCRIPT_FILE]
 ```
 
 ## List of supported operations:
