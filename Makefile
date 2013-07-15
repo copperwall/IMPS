@@ -6,4 +6,4 @@ clean:
 
 doc:
 	mkdir docs
-	javadoc -d docs *.java
+	javadoc -d docs ImpsTools.java

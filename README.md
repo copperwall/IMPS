@@ -7,6 +7,11 @@ IMPS began as a project for my CPE 315 Computer Architecture course. It currentl
  $ make
 ```
 
+### Javadocs:
+```shell
+ $ make doc
+```
+
 ## Usage:
    
 ###    Without script file (stdin):
